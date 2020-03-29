@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="../static/globals.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>A Danganronpa Simulator</title>
+  </head>
+
+  <body onload="simulate()">
+    <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+      <a class="navbar-brand">DR Simulator</a>
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item mr-md-3">
+          <a class="navbar-link" href="about.html" style="color: white;">About</a>
+        </li>
+
+        <li class="nav-item mr-md-3">
+          <a class="navbar-link" href="index.html" style="color: white;">Reset</a>
+        </li>
+
+      </ul>
+        <span class="navbar-text">MarcerCyoon</span>
+    </nav>
+
+    <div class="mt-2"></div>
+
+    <div id="content" class="container">
+      <a type="button" class="btn btn-primary" href="day.html">Continue...</a>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+
+  <script type="text/javascript">
+    var numChar = Number(window.sessionStorage.getItem("numChar"));
+    var arr = Array.apply(null, {length: 10}).map(Number.call, Number);
+    var numArr = arr.map(a => a+1);
+    console.log(numArr);
+
+    function simulate() {
+      while (numArr.length > 0) {
+        var numOne = numArr.splice(getRandomInt(0, numArr.length), 1)[0];
+
+        // Half of the time you get a double interaction event
+        if (getRandomInt(0, 2) == 0 && numArr.length > 0) {
+          var numTwo = numOne;
+          while (numTwo == numOne) {
+            numTwo = numArr.splice(getRandomInt(0, numArr.length), 1)[0];
+          }
+          addInteraction(numOne, numTwo);
+
+        } else {
+          addInteraction(numOne);
+        }
+      }
+
+      var continueButton = document.createElement("button");
+      continueButton.innerHTML = "Continue...";
+      continueButton.classList.add("btn");
+      continueButton.classList.add("btn-primary");
+      // continueButton.addEventListener("click", proceed());
+      document.getElementById("content").appendChild("continueButton");
+    }
+
+    function addInteraction(numOne, numTwo=-1) {
+      if (numTwo == -1) {
+        var choice = interactionOneArray[getRandomInt(0, interactionOneArray.length)];
+        var string = choice.replace("+", window.sessionStorage.getItem(numOne + "charName"));
+
+        var div = document.createElement("div");
+        div.innerHTML = string;
+
+        document.getElementById("content").appendChild(div);
+      } else {
+        var choice = interactionTwoArray[getRandomInt(0, interactionTwoArray.length)];
+        var string = choice.replace("+", window.sessionStorage.getItem(numOne + "charName"));
+        string = string.replace("+", window.sessionStorage.getItem(numTwo + "charName"));
+
+        var div = document.createElement("div");
+        div.innerHTML = string;
+      }
+    }
+
+    function proceed() {
+      var dayNum = Number(window.sessionStorage.getItem("dayNum"));
+      window.sessionStorage.removeItem("dayNum");
+      window.sessionStorage.setItem("dayNum", dayNum + 1);
+
+      // If it is currently the first interaction day, have another interaction day.
+      // Else, proceed to the motive.
+      if (dayNum % 4 == 1) {
+        window.location.href = "./day.html";
+      } else {
+        window.location.href = "./motive.html";
+      }
+    }
+
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      // The maximum is exclusive and the minimum is inclusive
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+  </script>
+</html>
