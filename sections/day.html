@@ -32,9 +32,7 @@
 
     <div class="mt-2"></div>
 
-    <div id="content" class="container">
-      <a type="button" class="btn btn-primary" href="day.html">Continue...</a>
-    </div>
+    <div id="content" class="container"></div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -42,7 +40,7 @@
   </body>
 
   <script type="text/javascript">
-    var arr = Array.apply(null, {length: Number(window.sessionStorage.getItem(numChar)})).map(Number.call, Number);
+    var arr = Array.apply(null, {length: Number(window.sessionStorage.getItem("numChar"))}).map(Number.call, Number);
     var numArr = arr.map(a => a+1);
     console.log(numArr);
 
@@ -68,8 +66,9 @@
       continueButton.innerHTML = "Continue...";
       continueButton.classList.add("btn");
       continueButton.classList.add("btn-primary");
-      // continueButton.addEventListener("click", proceed());
-      document.getElementById("content").appendChild("continueButton");
+      continueButton.addEventListener("click", proceed);
+      console.log(continueButton);
+      document.getElementById("content").appendChild(continueButton);
     }
 
     function addInteraction(numOne, numTwo=-1) {
