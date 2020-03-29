@@ -191,12 +191,22 @@
 
   <script type="text/javascript">
   function setup() {
-    var names = [];
-    for (var i = 1; i < 4; i += 1) {
-      names[i - 1] = document.getElementById(i + "charName").value;
+    var numChar = 3;
+    // Move all data into sessionStorage
+    for (var i = 1; i < numChar + 1; i += 1) {
+      window.sessionStorage.setItem("name" + i, document.getElementById(i + "charName").value);
+      window.sessionStorage.setItem(i + "charInt", document.getElementById(i + "charInt").value);
+      window.sessionStorage.setItem(i + "charStr", document.getElementById(i + "charStr").value);
+      window.sessionStorage.setItem(i + "charLuck", document.getElementById(i + "charLuck").value);
+      window.sessionStorage.setItem(i + "charHope", document.getElementById(i + "charHope").value);
     }
-    window.localStorage.setItem("names", names);
-    //window.location.href = "sections/intro.html";
+
+    // Determine mastermind
+
+    var mastermind = getRandomInt(1, numChar + 1);
+
+    window.sessionStorage.setItem("mastermindNum", mastermind);
+    window.sessionStorage.setItem("dayNum", 1);
   }
 
   function randomize() {
