@@ -42,14 +42,14 @@
   </body>
 
   <script type="text/javascript">
-    var numChar = Number(window.sessionStorage.getItem("numChar"));
-    var arr = Array.apply(null, {length: 10}).map(Number.call, Number);
+    var arr = Array.apply(null, {length: Number(window.sessionStorage.getItem(numChar)})).map(Number.call, Number);
     var numArr = arr.map(a => a+1);
     console.log(numArr);
 
     function simulate() {
       while (numArr.length > 0) {
         var numOne = numArr.splice(getRandomInt(0, numArr.length), 1)[0];
+        console.log(numOne);
 
         // Half of the time you get a double interaction event
         if (getRandomInt(0, 2) == 0 && numArr.length > 0) {
