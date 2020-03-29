@@ -74,7 +74,7 @@
     function addInteraction(numOne, numTwo=-1) {
       if (numTwo == -1) {
         var choice = interactionOneArray[getRandomInt(0, interactionOneArray.length)];
-        var string = choice.replace("+", window.sessionStorage.getItem(numOne + "charName"));
+        var string = choice.replace("+", window.sessionStorage.getItem("name" + numOne));
 
         var div = document.createElement("div");
         div.innerHTML = string;
@@ -82,8 +82,8 @@
         document.getElementById("content").appendChild(div);
       } else {
         var choice = interactionTwoArray[getRandomInt(0, interactionTwoArray.length)];
-        var string = choice.replace("+", window.sessionStorage.getItem(numOne + "charName"));
-        string = string.replace("+", window.sessionStorage.getItem(numTwo + "charName"));
+        var string = choice.replace("+", window.sessionStorage.getItem("name" + numOne));
+        string = string.replace("+", window.sessionStorage.getItem("name" + numTwo));
 
         var div = document.createElement("div");
         div.innerHTML = string;
