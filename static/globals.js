@@ -1,7 +1,7 @@
 // + denotes character name placeholder
 
 var interactionOneArray = [
-  "+ spends time along in their room.",
+  "+ spends time alone in their room.",
   "+ eats some donuts.",
   "+ does their laundry.",
   "+ cries in their room.",
