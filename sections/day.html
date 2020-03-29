@@ -73,7 +73,7 @@
         var choice = interactionOneArray[getRandomInt(0, interactionOneArray.length)];
         var string = choice.replace("+", window.sessionStorage.getItem("name" + numOne));
 
-        var div = document.createElement("div");
+        var div = document.createElement("p");
         div.innerHTML = string;
 
         document.getElementById("content").appendChild(div);
@@ -82,8 +82,10 @@
         var string = choice.replace("+", window.sessionStorage.getItem("name" + numOne));
         string = string.replace("+", window.sessionStorage.getItem("name" + numTwo));
 
-        var div = document.createElement("div");
+        var div = document.createElement("p");
         div.innerHTML = string;
+
+        document.getElementById("content").appendChild(div);
       }
     }
 
